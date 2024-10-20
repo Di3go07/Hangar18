@@ -1,0 +1,280 @@
+main {
+    background-color: white;
+    font-family: "Open Sans";
+    margin-left: 15%;
+    margin-right: 15%;
+    margin-bottom: 300px;
+}
+
+
+main {
+    background-color: white;
+    font-family: "Open Sans";
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-bottom: 300px;
+}
+
+
+h2 {
+    font-family: "Oswald";
+    color: #262425;
+    font-size: 45px;
+    margin-top: 80px;
+    margin-bottom: 35px;
+    margin-left: 10px;
+}
+
+h3 {
+    margin-top: 30px;
+    font-size: 32px;
+}
+
+p {
+    margin-top: 15px;
+    font-size: 14px;
+}
+
+/* NOTICIAS */
+
+.primeira_linha {
+    display: flex;
+}
+
+.primeira_linha div{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.primeira_linha aside{
+    margin: 5px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.main_news img{
+    width: auto;
+    max-height: auto;
+    padding-bottom: 20px;
+    object-fit: cover;
+}
+
+#main_news {
+    padding-top: 10px;
+    padding-right: 15px;
+    flex-basis: 80%;
+}
+
+aside {
+    padding-top: 10px;
+    flex-basis: 40%;
+}
+
+aside div h3{
+    font-size: 18px;
+}
+
+aside div p {
+    margin-top: 10px;
+    font-size: 12px;
+}
+
+#second_news{
+    padding-bottom: 30px;
+}
+
+/* MATÉRIA */
+.materias{
+    display: flex;
+}
+
+.sessao_materia div {
+    display: flex;
+}
+
+#primeira_fila div, #segunda_fila div{
+    max-width: 350px;
+    margin: 20px;
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+#primeira_fila div img, #segunda_fila div img{
+    object-fit: cover;
+    max-width: 500px;
+    max-height: 500px;
+}
+
+#primeira_fila div h3, #segunda_fila div h3{
+    font-size: 28px;
+}
+
+#segunda, #quarta{
+    padding-left: 80px;
+}
+
+/* REDES */
+
+.redes {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    padding-left: 120px;
+}
+
+.redes div{
+    width: auto;
+    height: 90px;
+    background-color: #262425;
+    border: 2px solid #0D0C0C;
+    margin-bottom: 30px;
+}
+
+#whatsapp{
+    background-color: #53AC19;
+}
+
+#instagram{
+    background-image: linear-gradient(to bottom right, #515BD4, #F58529 );
+}
+
+#twitter{
+    background-color: black;
+}
+
+#facebook{
+    background-color: blue;
+}
+
+/* MEDIA QUERY */
+
+/*Noticia*/
+
+@media screen and (max-width: 1300px) {
+    main {
+        margin-left: 5%;
+        margin-right: 5%;
+    }
+    aside div h3{
+        font-size: 15px;
+    }    
+    #main_news h3{
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    h2 {
+        font-family: "Oswald";
+        color: #262425;
+        font-size: 30px;
+        margin-bottom: 30px;
+    }
+    
+    h3 {
+        font-size: 20px;
+    }
+    
+    p {
+        margin-top: 15px;
+        font-size: 14px;
+    }
+    
+    .primeira_linha {
+        display: block;
+    }
+
+    .primeira_linha div {
+        margin: 10px;
+        padding-bottom: 50px;
+        display: flex;
+        max-width: auto;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    
+    #main_image{
+        width: auto;
+        max-height: 600px;
+        padding-bottom: 20px;
+        object-fit: cover;
+    }
+}
+
+
+/* Matéria */
+
+@media screen and (max-width: 1300px) {
+    #primeira_fila div h3, #segunda_fila div h3{
+        font-size: 20px;
+    }
+    #primeira_fila div, #segunda_fila div{
+        width: 400px;
+    }
+    #segunda, #quarta{
+        padding-left: 0px;
+    }
+    .redes {
+        padding: 20px;
+    }
+
+}
+
+@media screen and (max-width: 1100px) {
+    .materias{
+        display: block;
+    }
+    .redes {
+        padding: 0;
+    }
+    .redes div{
+        width: auto;
+        height: 80px;
+        margin-left: 15%;
+    }
+    #segunda, #quarta{
+        padding-left: 80px;
+    }
+}
+
+@media screen and (max-width: 760px) {
+    #segunda, #quarta{
+        padding-left: 0px;
+    }
+    .redes {
+        display: block;
+        align-content: center;
+        width: 500px;
+    }
+    .redes div{
+        width: auto;
+        height: 50px;
+        margin-left: 0%;
+    }
+    .sessao_materia {
+        flex-direction: column;
+    }
+    #title {
+        margin-top: 30px;
+    }
+    #primeira_fila div h3, #segunda_fila div h3{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .redes {
+        max-width: 300px;
+    }
+    #primeira_fila div h3, #segunda_fila div h3{
+        font-size: 18px;
+    }
+    #primeira_fila div p, #segunda_fila div p{
+        font-size: 10px;
+    }
+}

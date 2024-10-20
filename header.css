@@ -1,0 +1,90 @@
+/* 
+    head-font ->  Metal Mania
+    tittle-font ->  Oswald
+    text-font -> Open Sans
+
+    highlight-color -> #734E20
+    tittle-color -> #262425
+    text-color -> #black
+    banner-color -> #0D0C0C
+    html-color -> 
+*/
+
+* {
+    margin: 0;
+    padding: 0;
+}
+html {
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 140px;
+}
+
+
+#banner {
+    display: flex;
+    flex-direction: row;
+    background-color: #0D0C0C;
+    padding: 50px;
+    align-items: center;
+    justify-content: center;
+}
+
+header h1 {
+    font-family: "Metal Mania";
+    font-size: 1rem;
+    background-image: linear-gradient(#734E20, #F2AB27 60%);
+    color: black;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding-right: 40px;
+}
+
+header h2 {
+    padding-top: 45px;
+    font-size: 25px;
+    font-family: "Oswald";
+    color: white;
+}
+
+#navbar ul{
+    background-color: white;
+    display: flex;
+    flex-direction: row;
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 5px;
+    list-style-type: none;
+    justify-content: space-evenly;
+    border-bottom: 2px solid;
+    border-color: #262425;
+}
+
+#navbar li {
+    font-family: "Oswald";
+    font-size: 18px;
+    padding: 12px;
+    color: #262425;
+    font-weight: 800;
+}
+
+@media screen and (max-width: 760px) {
+    #navbar ul{
+        display: none;
+    }
+    header h1 {
+        text-align: center;
+        font-family: "Metal Mania";
+        font-size: 0.6rem;
+        padding: 0;
+    }
+    #banner {
+        padding: 10px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    header h1 {
+        font-size: 0.3rem;
+    }
+}
