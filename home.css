@@ -151,6 +151,100 @@ aside div p {
     background-color: blue;
 }
 
+/* RESENHAS */
+
+.resenhas {
+    text-align: center;
+}
+
+.albuns {
+    display: flex;
+    flex-direction: row;
+    margin-top: 80px;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+
+
+.albuns div {
+    width: 350px;
+    height: 350px;
+    display: grid;
+    align-items: end;
+    background-image: url("https://i.scdn.co/image/ab67616d0000b273a99724e064a3a21838388bee");
+    background-size: cover;
+    background-position: center;
+    border: #0D0C0C 2px solid;
+    margin-right: 30px;
+    margin-bottom: 50px;
+}
+
+
+.albuns div h3{
+    font-family: "Open Sans";
+    padding: 10px;
+    display: grid;
+    align-items: center;
+    color: white;
+    font-size: 28px;
+    text-align: center;
+    background-color: #0D0C0C;
+    height: 120px;
+    -webkit-text-stroke-width: 0.5px;
+    -webkit-text-stroke-color: black;
+    opacity: 0.8;
+    font-weight: 700;
+}
+
+.albuns div img{
+    width: auto;
+    height: auto;
+    object-fit:contain;
+    overflow: hidden;
+    -moz-transition: all 0.5s;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+#album1{
+    background-image: url("https://i.scdn.co/image/ab67616d0000b273a99724e064a3a21838388bee");
+}
+#album2{
+    background-image: url("https://upload.wikimedia.org/wikipedia/en/3/30/Starset_-_Divisions.png");
+}
+#album3{
+    background-image: url("https://i.scdn.co/image/ab67616d0000b27321ebf49b3292c3f0f575f0f5");
+}
+#album4{
+    background-image: url("https://upload.wikimedia.org/wikipedia/pt/8/85/Iron_Maiden_-_Piece_Of_Mind.jpg");
+}
+
+
+.albuns div:hover  h3{
+    display: none;
+}
+
+.albuns div:hover{
+    cursor: pointer;
+    margin-right: 50px;
+    margin-left: 20px;
+    margin-bottom: 80px;
+    -moz-transform: scale(1.2);
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    transition: all .5s;
+}
+
+#button_resenhas{
+    font-family: "Oswald";    
+    text-align: center;
+    padding: 10px;
+    font-size: 25px;
+    border: #0D0C0C 1px solid;
+    cursor: pointer;
+}
+
+
 /* MEDIA QUERY */
 
 /*Noticia*/
@@ -276,5 +370,29 @@ aside div p {
     }
     #primeira_fila div p, #segunda_fila div p{
         font-size: 10px;
+    }
+    .redes h2{
+        margin-top: 30px;
+    }
+}
+
+/* RESENHAS */
+
+@media screen and (max-width: 1100px) {
+    .albuns {
+        display: flex;
+        justify-content: center;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+    .albuns div {
+        width: 300px;
+        height: 300px;
+    }
+
+    .albuns div:hover {
+        margin-right: 0px;
+        margin-left: 0px;
+        margin-bottom: 60px;
     }
 }
