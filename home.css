@@ -1,40 +1,55 @@
-main {
-    background-color: white;
-    font-family: "Open Sans";
-    margin-left: 15%;
-    margin-right: 15%;
-    margin-bottom: 300px;
+body{
+    background-color: #1E1E1E;
+    font-family: "Fira Sans Condensed";
 }
 
 
 main {
-    background-color: white;
-    font-family: "Open Sans";
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-bottom: 300px;
+    background-color: #1A1A1A;
+    font-family: "Fira Sans Condensed";
+    margin-left: 5%;
+    margin-right: 5%;
+    padding-left: 3%;
+    padding-right: 3%;
+    padding-top: 3%;
+    padding-bottom: 5%;
 }
 
 
 h2 {
     font-family: "Oswald";
-    color: #262425;
+    color: #734E20;
     font-size: 45px;
-    margin-top: 80px;
+    margin-top: 20px;
+    padding-top: 0px;
     margin-bottom: 35px;
     margin-left: 10px;
 }
 
 h3 {
+    color: #E0E0E0;
     margin-top: 30px;
-    font-size: 32px;
+    font-size: 35px;
+}
+
+h3:hover {
+  color: #B0B0B0;
+  cursor: pointer;
 }
 
 p {
+    color: #E0E0E0;
     margin-top: 15px;
     font-size: 14px;
 }
 
+hr{
+  margin-top: 50px;
+  margin-bottom:50px;
+  height: 2px;
+  border: none;
+  background-color: #121212;
+}
 /* NOTICIAS */
 
 .primeira_linha {
@@ -181,12 +196,11 @@ aside div p {
 
 
 .albuns div h3{
-    font-family: "Open Sans";
     padding: 10px;
     display: grid;
     align-items: center;
     color: white;
-    font-size: 28px;
+    font-size: 30px;
     text-align: center;
     background-color: #0D0C0C;
     height: 120px;
@@ -238,13 +252,20 @@ aside div p {
 #button_resenhas{
     font-family: "Oswald";    
     text-align: center;
-    padding: 10px;
-    font-size: 25px;
-    border: #0D0C0C 1px solid;
+    padding: 15px;
+    font-size: 18px;
+    background-color: #734E20; 
+    color: #E0E0E0;
+    border: #121212 2px solid;
+    border-radius: 50px;
     cursor: pointer;
 }
-
-
+#button_resenhas:hover{
+  background-color: #121212;
+  color:#E0E0E0;
+  border: #734E20 2px solid;
+  transition: background-color 1s;
+}
 /* MEDIA QUERY */
 
 /*Noticia*/

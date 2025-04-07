@@ -23,7 +23,7 @@ html {
 #banner {
     display: flex;
     flex-direction: row;
-    background-color: #0D0C0C;
+    background-color: black;
     padding: 50px;
     align-items: center;
     justify-content: center;
@@ -48,24 +48,24 @@ header h2 {
 }
 
 #navbar ul{
-    background-color: white;
+    background-color: #121212;
     display: flex;
     flex-direction: row;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 5px;
     list-style-type: none;
     justify-content: space-evenly;
-    border-bottom: 2px solid;
-    border-color: #262425;
 }
 
 #navbar li {
     font-family: "Oswald";
-    font-size: 18px;
+    font-size: 25px;
     padding: 12px;
-    color: #262425;
+    color: #734E20;
     font-weight: 800;
+}
+
+#navbar li:hover {
+  font-size: 30px;
+  cursor: pointer;
 }
 
 @media screen and (max-width: 760px) {
