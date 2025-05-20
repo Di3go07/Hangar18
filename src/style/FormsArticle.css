@@ -1,0 +1,219 @@
+.Form{
+    color:white;
+    width: 60%;
+}
+
+
+.Form h3{
+    color: #734E20;
+    font-size: 4em;
+    margin: 0;
+    margin-bottom: 24px;
+}
+
+.Form h4{
+    font-size: 3em;
+    font-style: italic;
+    font-weight: 300;
+    margin-top: 12px;
+    margin-bottom: 42px;
+}
+
+
+.Form p, label{
+    font-size: 3em;
+    margin-bottom: 12px;
+}
+
+.form-field{
+    display: flex;
+    flex-direction: column;
+    margin-top: 24px;
+    width: 100%;
+}
+
+.form-field input{
+    color: white;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #734E20 ;
+    background-color: #1E1E1E;
+    font-family: 'Fira Sans Condensed';
+    font-size: 2.5em;
+}
+
+.form-field input:focus {
+    border: 3px solid #734E20;  /* Cor desejada */
+    outline: none; /* Remove o contorno azul padrão */
+    color: white;
+    background: rgba(115, 78, 32, 0.1);
+}
+
+.form-field input:-webkit-autofill,
+.form-field input:-webkit-autofill:hover, 
+.form-field input:-webkit-autofill:focus,
+.form-field input:autofill,
+.form-field input:autofill:hover,
+.form-field input:autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset; /* Força o fundo transparente */
+    -webkit-text-fill-color: white;
+    background-color: transparent !important;
+    opacity: 1;
+    transition: background-color 5000s ease-in-out 0s; /* Anima qualquer mudança de cor */
+    font-family: 'Fira Sans Condensed';
+    font-size: 2.5em;
+}
+
+.form-section{
+    display: flex;
+    flex-direction: row;
+    gap: 10%;
+    margin-bottom: 42px;
+}
+
+.form-field select{
+    color: white;
+    font-family: 'Fira Sans Condensed';
+    font-size: 2.5em;
+    padding: 12px;
+    border-radius: 10px;
+    border: 2px solid #734E20 ;
+    background-color: #1E1E1E;
+}
+
+.form-field select:focus {
+    border: 3px solid #734E20; 
+    outline: none; /* Remove o contorno azul padrão */
+}
+
+.form-field select option{
+    border: 3px solid #734E20;  /* Cor desejada */
+
+}
+
+/* NODS */
+
+.campoEscrita{
+    margin-left: 24px;
+}
+
+.campoEscrita p{
+    font-size: 3em;
+}
+
+.campoEscrita textarea{
+    color: white;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 2px solid #734E20 ;
+    background-color: #1E1E1E;
+    font-family: 'Fira Sans Condensed';
+    font-size: 2.5em;
+    font-weight: 300;
+}
+
+.campoEscrita textarea:focus {
+    border: 3px solid #734E20;  /* Cor desejada */
+    outline: none; /* Remove o contorno azul padrão */
+    color: white;
+}
+
+.campoEscrita input{
+    color: white;
+    padding: 12px;
+    margin-bottom: 12px;
+    border-radius: 10px;
+    border: 2px solid #734E20 ;
+    background-color: #1E1E1E;
+    font-family: 'Fira Sans Condensed';
+    font-size: 2.5em;
+    font-weight: 300;
+}
+
+.campoEscrita input:focus {
+    border: 3px solid #734E20;  /* Cor desejada */
+    outline: none; /* Remove o contorno azul padrão */
+    color: white;
+}
+
+.campoEscrita input:-webkit-autofill,
+.campoEscrita input:-webkit-autofill:hover, 
+.campoEscrita input:-webkit-autofill:focus,
+.campoEscrita input:autofill,
+.campoEscrita input:autofill:hover,
+.campoEscrita input:autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset; /* Força o fundo transparente */
+    -webkit-text-fill-color: white;
+    background-color: transparent !important;
+    opacity: 1;
+    transition: background-color 5000s ease-in-out 0s; /* Anima qualquer mudança de cor */
+    font-family: 'Fira Sans Condensed';
+    font-size: 2.5em;
+}
+
+.campoEscrita label{
+    margin-top: 24px;
+}
+
+.excluir{
+    padding: 5px;
+    margin-bottom: 12px;
+    background-color: red;
+    border: none;
+    border-radius: 5px;
+    color: white;
+}
+
+.TagSelect{
+    margin-top: 24px;
+}
+
+.TagSelect select{
+    font-family: 'Fira Sans Condensed';
+    font-size: 2em;
+    padding: 5px;
+    border-radius: 10px;
+    color: white;
+    border: 2px solid #734E20 ;
+    background-color: #1E1E1E;
+}
+
+.TagSelect select:focus {
+    border: 3px solid #734E20; 
+    outline: none; /* Remove o contorno azul padrão */
+}
+
+.TagSelect button{
+    margin-left: 10px;
+    padding: 5px;
+    font-weight: 300;
+    border: none;
+    border-radius: 5px;
+    background-color: #734E20;
+    color: white;
+}
+
+.TagSelect button:hover{
+    cursor: pointer;
+    font-size: 2.5em;
+}
+
+.saveButton{
+    margin-top: 42px;
+    padding: 10px;
+    font-size: 2.5em;
+    font-weight: 600;
+    background-color: #1E1E1E;
+    color: #734E20;
+    border: 2px solid #734E20;
+    border-radius: 15px;
+}
+
+.saveButton:hover{
+    cursor: pointer;
+    color: #1E1E1E;
+    background-color: #734E20;
+    border: 3px solid #1E1E1E;
+    transition: all 0.3s ease;
+}
