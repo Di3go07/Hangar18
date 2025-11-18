@@ -1,13 +1,12 @@
 import React, { useState, useEffect, useMemo} from 'react';
 import { db } from '../firebaseConnection';
 import { doc, getDocs, getDoc, collection} from 'firebase/firestore';
-import '../style/main.css'
-import '../style/News.css'
 
 function NewsPag(){
   //STATES
   const [noticias, setNews] = useState([]);
   const [pagina, setPag] = useState((1));
+  const [loading, setLoading] = useState(true);
 
   const paginaAtual = useMemo(()=> pagina)
 
@@ -43,6 +42,7 @@ function NewsPag(){
       const listaFiltrada = listaOrdenada.filter(article => article.type == 'Notícia'); //search only for articles that are news
       const listaFinal = listaFiltrada.map(({ dateObj, ...rest }) => rest); 
       setNews(listaFinal);
+      setLoading(false)
       console.log("Notícias carregadas com sucesso!");
   }
 
@@ -69,36 +69,66 @@ function NewsPag(){
     }
   }
 
-  return(
-    <div>
-        <h1> ▪ NOTÍCIAS </h1>
+  //WEB
+  if (loading) return <div className="loading"> <p> Carregando... </p></div>;
 
-        <div className='news-page'>
+
+  return(
+    <div className='bg-Body ms-lg-5 me-lg-5 p-4'> 
+        <h2> NOTÍCIAS </h2>
+
+        <div className='pt-4'>
           {noticias.slice((paginaAtual - 1) * 3, paginaAtual * 3).map((news, index) => (
-              <div key={`news-${index}`} className='news-card'>
-                <div>  
-                  <img src={news.thumb}/>
+            <div key={`news-${index}`} className="container p-0 m-0 mb-2"> 
+              <div className='row g-3'>
+                <div className='col-md-4'> 
+                  <img className="img-news" src={news.thumb}/>
                 </div>
-                <div className='text-area'> 
-                  <div className='title'> 
-                    <h2> <a href= {news.type.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') + '/' + news.slug}> {news.title} </a> </h2>
+                <div className='col-md-7 d-flex flex-column justify-content-around'> 
+                  <div className='block'>
+                    <h3 className="title mb-1 position-relative d-inline-block">
+                      <a 
+                        href={news.type.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '') + '/' + news.slug}
+                        className="text-decoration-none position-relative hover-effect"
+                      >
+                        <span className="position-relative z-index-2">{news.title}</span>
+                      </a>
+                    </h3>
                     <h4 className='subtitle'> {news.subtitle} </h4>
                   </div>
-                  <div className='infos'>
-                    <p> <i class="bi bi-calendar-minus"></i> {news.date} </p>
-                    <p><i class="bi bi-box-arrow-up-right"></i> Compartilhar </p>
+                  <div className='block mt-1'>
+                    <p className='infos'> <i className="bi bi-calendar-minus"></i> {news.date} </p>
+                    <p className='infos'><i className="bi bi-box-arrow-up-right"></i> Compartilhar </p>
                   </div>
                 </div>
               </div>
+            </div>
           ))}
         </div>
 
-        <p className='page-changer'>
-          <button onClick={ultimaPag} style={{opacity: pagina == 1 ? 0.5 : 1, cursor:  pagina == 1 ? 'not-allowed' : 'pointer'}}> - </button>
-          {paginaAtual}
-          <button onClick={proximaPag} style={{opacity: pagina >= (noticias.length/3) ? 0.5 : 1, cursor: pagina >= (noticias.length/3) ? 'not-allowed' : 'pointer'}}> + </button>
-        </p>
-
+        <div className='page-changer d-flex flex-row align-items-center mt-2'>
+          <button 
+            onClick={ultimaPag} 
+            style={{
+              opacity: pagina === 1 ? 0.5 : 1, 
+              cursor: pagina === 1 ? 'not-allowed' : 'pointer'
+            }}
+            className="btn btn-outline-secondary me-1"
+          > 
+            - 
+          </button>
+            <p className='page-number'>{paginaAtual}</p>
+          <button 
+            onClick={proximaPag} 
+            style={{
+              opacity: pagina >= (noticias.length/3) ? 0.5 : 1, 
+              cursor: pagina >= (noticias.length/3) ? 'not-allowed' : 'pointer'
+            }}
+            className="btn btn-outline-secondary ms-1"
+          > 
+            + 
+          </button>
+        </div>
     </div>
   )
 

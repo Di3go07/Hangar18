@@ -1,0 +1,21 @@
+$spacer: 6px;
+
+$spacers: (
+  0: 0,
+  1: $spacer * 3,
+  2: $spacer * 4,
+  3: $spacer * 6,
+  4: $spacer * 7,
+  5: $spacer * 20,
+);
+
+$font-size-base: 0.375rem;
+
+$h6-font-size: $font-size-base * 2;
+$h5-font-size: $font-size-base * 3;
+$h4-font-size: $font-size-base * 3.5;
+$h3-font-size: $font-size-base * 5;
+$h2-font-size: $font-size-base * 7;
+$h1-font-size: $font-size-base * 15;
+
+@import "~bootstrap/scss/bootstrap";

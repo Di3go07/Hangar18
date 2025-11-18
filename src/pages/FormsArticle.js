@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo} from 'react';
 import { db } from '../firebaseConnection';
-import { doc, setDoc, addDoc, collection} from 'firebase/firestore';
-import '../style/FormsArticle.css'
+import { doc, getDocs, addDoc, collection, where, query} from 'firebase/firestore';
 
 function FormsArticle(){
     //STATES
@@ -10,13 +9,75 @@ function FormsArticle(){
     const [subtitle, setSubtitle] = useState('');
     const [slug, setSlug] = useState('');
     const [thumb, setThumb] = useState('');
+    const [author, setAuthor] = useState('');
     const [date, setDate ] = useState('');
     const [tag, setTag] = useState('p');
     const [type, setType] = useState('Notícia');
     const [nextPosition, setNextPosition] = useState(1);
     const [nods, setNods] = useState([]);
+    const [keywordsInput, setKeywordsInput] = useState('');
+    const [keywords, setKeywords] = useState([]);
 
     //FUNCTIONS
+
+    useEffect(()=>{
+        const author = localStorage.getItem("user");
+
+        if (author){
+            setAuthor(JSON.parse(author));
+        }
+    }, []) 
+
+    function splitKeyword(e){
+        if (e.key === ',' || e.key === 'Enter') {
+            const keysList = keywordsInput.split(',').filter(key => key !== '').map(key => key.trim());
+            setKeywords(keysList)
+        }
+    }
+
+    async function handleKey(key){
+        let id;
+        const q = query(collection(db, "keywords"), where("value", "==", key.toLowerCase()));
+        const querySnapshot = await getDocs(q);
+
+        if (querySnapshot.empty) { 
+            //create the keyword
+            id = Date.now()
+            const keywrodRef = await addDoc(collection(db, "keywords"), 
+                {
+                    ID: id,
+                    value: key.toLowerCase()
+                }
+            );
+            console.log('Nova keyword registrada no banco com ID:', keywrodRef.id);
+        } else {
+            //Search the key's id 
+            const keyword = querySnapshot.docs[0].data()
+            id = keyword.ID
+        }
+
+        //verify if the relation alredy exists 
+        const relationsRef = collection(db, "keywords-news");
+        const relationQuery = query(
+            relationsRef,
+            where("KeywordID", "==", id),
+            where("NewsID", "==", newsID) 
+        );
+        const relationSnapshot = await getDocs(relationQuery);
+        if (relationSnapshot.empty) {
+            //relate the keyword and the news
+            const relationRef = await addDoc(collection(db, "keywords-news"), 
+                {
+                    KeywordID: id,
+                    NewsID: newsID
+                }
+            );
+            console.log('Nova relação no banco com ID:', relationRef.id);
+        } else {
+            console.log('Relation already exisits')
+        }
+    }
+
     function validateForms(){
         if (newsID && title && subtitle && thumb && nods.length != 0 ){
             console.log('Formulário validado!')
@@ -27,7 +88,6 @@ function FormsArticle(){
             return false
         }
     }
-
 
     async function SaveText() {
         //function to save the new text
@@ -47,6 +107,7 @@ function FormsArticle(){
         const publicationRef = await addDoc(collection(db, "publications"), 
             {
                 id: newsID,
+                author: author.ID,
                 title: title,
                 subtitle: subtitle,
                 slug: slug,
@@ -83,7 +144,16 @@ function FormsArticle(){
         await Promise.all(nodPromises);
         console.log('All nods saved successfully');
 
-        //reseta todos os campos    
+        //Save the keywords registred and the news id
+        const keysList = keywordsInput
+            .split(',')
+            .map(key => key.trim())
+            .filter(key => key !== ''); //save all the last alterations before send the informations to the database
+        
+        setKeywords(keysList);
+        keywords.map(key => handleKey(key))
+
+        //reset all fields   
         setTitle('');
         setSubtitle('');
         setNextPosition(1);
@@ -91,6 +161,8 @@ function FormsArticle(){
         setNods([]);
         setSlug('');
         setThumb('');
+        setKeywords([]);
+        setKeywordsInput('');
     }
 
     function addNod(){
@@ -142,7 +214,7 @@ function FormsArticle(){
                             onChange={(e) => handleChangeElemento(nod.id,{ value: e.target.value })}
                             style={{width: '100%', minHeight: '100px'}}
                         />
-                        <button  className='excluir' onClick={() => deleteElemento(nod.id)}> Excluir </button>
+                        <button  className='excluir' onClick={() => deleteElemento(nod.id)}> <i class="bi bi-trash align-middle"></i> Excluir </button>
                     </div>
                 );
             case 'h3':
@@ -155,7 +227,7 @@ function FormsArticle(){
                             onChange={(e) => handleChangeElemento(nod.id, { value: e.target.value })}
                             style={{width: '100%'}}
                         />
-                        <button  className='excluir' onClick={() => deleteElemento(nod.id)}> Excluir </button>
+                        <button  className='excluir' onClick={() => deleteElemento(nod.id)}> <i class="bi bi-trash align-middle"></i> Excluir </button>
                     </div>
                 );
             case 'img':
@@ -163,53 +235,60 @@ function FormsArticle(){
                     <div key={nod.id} style={{margin: '10px 0'}}>
                         <div>
                             <p> Imagem: </p>
-                            <p> • URL</p>
-                            <input
-                                type="text"
-                                value={nod.value}
-                                onChange={(e) => handleChangeElemento(nod.id, { value: e.target.value })}
-                                style={{width: '100%'}}
-                                placeholder="nome_imagem.png"
-                            />
                         </div>
 
-                        <div>
-                            <p> • Legenda </p>
-                            <input 
-                                type='text'
-                                value={nod.caption}
-                                onChange={(e) => handleChangeElemento(nod.id, { caption: e.target.value })}
-                                placeholder='crie uma legenda criativa e útil'
-                                style={{width: '100%'}}
-                            />
-                        </div>
-                        
-                        <div>
-                            <p> • ALT </p>
-                            <input 
-                                type='text'
-                                value={nod.ALT}
-                                onChange={(e) => handleChangeElemento(nod.id, { ALT: e.target.value })}
-                                placeholder='breve descrição da imagem'
-                                style={{width: '100%'}}
-                            />
-                        </div>
-
-                        {nod.value && (
-                            <div style={{marginTop: '10px'}}>
-                                <img 
-                                    src={`${nod.value}`} 
-                                    alt="Pré-visualização" 
-                                    style={{maxWidth: '200px', maxHeight: '200px'}}
-                                    onError={(e) => {
-                                        e.target.onerror = null; 
-                                        e.target.src = '/src/images/placeholder.png';
-                                    }}
+                        <div className='ms-1'>
+                            <div>
+                                <p> • URL</p>
+                                <input
+                                    type="text"
+                                    className='mb-1'
+                                    value={nod.value}
+                                    onChange={(e) => handleChangeElemento(nod.id, { value: e.target.value })}
+                                    style={{width: '100%'}}
+                                    placeholder="nome_imagem.png"
                                 />
-                                <p style={{fontSize: '12px', color: '#666'}}>Pré-visualização</p>
                             </div>
-                        )}
-                        <button  className='excluir' onClick={() => deleteElemento(nod.id)}> Excluir </button>
+
+                            <div>
+                                <p> • Legenda </p>
+                                <input 
+                                    type='text'
+                                    className='mb-1'
+                                    value={nod.caption}
+                                    onChange={(e) => handleChangeElemento(nod.id, { caption: e.target.value })}
+                                    placeholder='crie uma legenda criativa e útil'
+                                    style={{width: '100%'}}
+                                />
+                            </div>
+                            
+                            <div>
+                                <p> • ALT </p>
+                                <input 
+                                    type='text'
+                                    value={nod.ALT}
+                                    onChange={(e) => handleChangeElemento(nod.id, { ALT: e.target.value })}
+                                    placeholder='breve descrição da imagem'
+                                    style={{width: '100%'}}
+                                />
+                            </div>
+
+                            {nod.value && (
+                                <div style={{marginTop: '10px'}}>
+                                    <img 
+                                        src={`${nod.value}`} 
+                                        alt="Pré-visualização" 
+                                        style={{maxWidth: '200px', maxHeight: '200px'}}
+                                        onError={(e) => {
+                                            e.target.onerror = null; 
+                                            e.target.src = '/src/images/placeholder.png';
+                                        }}
+                                    />
+                                    <p style={{fontSize: '12px', color: '#666'}}>Pré-visualização</p>
+                                </div>
+                            )}
+                        </div>
+                        <button  className='excluir' onClick={() => deleteElemento(nod.id)}> <i class="bi bi-trash align-middle"></i> Excluir </button>
                     </div>
                 )
         }
@@ -230,38 +309,42 @@ function FormsArticle(){
 
     //WEB PAGE
     return(
-         <div className='Form'>
-                <h1> Redação </h1>
-                <h4> Escreva o texto a ser publicado </h4>
+         <div className='form-group bg-Body ms-lg-5 me-lg-5 p-4'>
+                <h2> Redação </h2>
+                <h4 className='subtitle mt-2 mb-4'> Bem vindo, {author.name}! Escreva o texto a ser publicado </h4>
 
-                <h3> Nova {type}</h3>
-                <div className='form-field'>
-                    <label htmlFor="titulo"> Título </label>
+                <h3 className='mb-2'> Nova {type}</h3>
+                <div className='d-flex flex-column mb-2'>
+                    <label class="form-label" htmlFor="titulo"> Título </label>
                     <input type='text' name='titulo'  maxlength="70" value={title} onChange={(e) => {setTitle(e.target.value); setSlug(titleToSlug(e.target.value))}} required />
                 </div>
-                <div className='form-field'> 
-                    <label htmlFor="subtitulo"> Subtítulo </label>
+                <div className='d-flex flex-column mb-2'> 
+                    <label class="form-label" htmlFor="subtitulo"> Subtítulo </label>
                     <input type='text' name='subtitulo' maxlength="90" value={subtitle} onChange={(e) => setSubtitle(e.target.value)} required />
                 </div>
-                <div className='form-section'>
-                    <div className='form-field'>
-                        <label> Tipo: </label>
-                        <select name="tipo" value={type} onChange={(e) => setType(e.target.value)}>
+                <div className='d-flex flex-row gap-lg-5'>
+
+                    <div className='d-flex flex-column flex-fill'>
+                        <label class="form-label"> Tipo: </label>
+                        <select className='form-select' name="tipo" value={type} onChange={(e) => setType(e.target.value)}>
                             <option> Notícia </option>
                             <option> Matéria </option>
                             <option> Resenha </option>
                         </select>
                     </div>
 
-                    <div className='form-field img-field'>
-                        <label htmlFor="capa"> Capa </label>
-                        <input
-                            type="text"
-                            name="capa"
-                            value={thumb}
-                            placeholder="/images/nome_imagem.png"
-                            onChange={(e) => setThumb(e.target.value)}
-                        />
+                    <div className='d-flex flex-column flex-fill'>
+                        <label for="basic-url" class="form-label">Capa</label>
+                        <div class="input-group">
+                            <span class="input-group-text" id="basic-addon3">/images/nome_imagem.png</span>
+                            <input 
+                                type="text" 
+                                value={thumb}
+                                class="form-control" 
+                                id="basic-url" 
+                                aria-describedby="basic-addon3 basic-addon4" 
+                                onChange={(e) => setThumb(e.target.value)}/>
+                        </div>
 
                         {thumb && (
                             <div style={{marginTop: '10px'}}>
@@ -280,23 +363,36 @@ function FormsArticle(){
                     </div>
                 </div>
                 
-                <h3> Conteúdo </h3>
+                <h3 className='mb-2 mt-4'> Conteúdo </h3>
                 <div className='campoEscrita'> 
                     {/* Render a input for each nod saved based on their own tag */}
                     {nods.map(nod => 
                         renderNods(nod)
                     )}
                 </div>
-                <div className='TagSelect'>
-                    <select name="tag" value={tag} onChange={(e) => setTag(e.target.value)}>
+                <div>
+                    <select className='tag-select' name="tag" value={tag} onChange={(e) => setTag(e.target.value)}>
                         <option> p </option>
                         <option> h3 </option>
                         <option> img </option>
                     </select>
-                    <button onClick={addNod}> Adicionar </button>
+                    <button className='addButton' onClick={addNod}> Adicionar </button>
+                </div>
+                
+                <div className='d-flex flex-column'>
+                    <h3 className='mb-2 mt-4'> Keywords </h3>
+                    <input placeholder='Separe por vírgula' type='text' name='subtitulo' maxlength="90" value={keywordsInput} onKeyDown={splitKeyword} onChange={(e) => setKeywordsInput(e.target.value)} required />
+
+                    <div className='d-flex flex-row m-1'> 
+                        {keywords && keywords.length > 0 ? (
+                            keywords.map(key => <p className='p-keyword'> {key.toUpperCase()} - </p>)
+                        ) : (
+                            <p></p>
+                        )}
+                    </div>
                 </div>
 
-                <button className='saveButton' onClick={SaveText}> SALVAR {type.toUpperCase()} </button>
+                <button className='saveButton mt-0' onClick={SaveText}> SALVAR {type.toUpperCase()} </button>
             </div>
     )
 }
