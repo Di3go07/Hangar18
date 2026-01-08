@@ -16,7 +16,9 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+import hangar18.views as func
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('users', func.users)
 ]
