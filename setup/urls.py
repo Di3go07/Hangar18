@@ -15,10 +15,15 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-import hangar18.views as func
+from django.urls import path, include
+from rest_framework import routers
+from hangar18.views import userViewSet, publicationViewSet
+
+router = routers.DefaultRouter()
+router.register('users', userViewSet, basename='users')
+router.register('publications', publicationViewSet, basename='publications')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('users', func.users)
+    path('',include(router.urls))
 ]

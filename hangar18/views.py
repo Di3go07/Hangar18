@@ -1,13 +1,13 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from rest_framework import viewsets
+from hangar18.models import User, Publication
+from hangar18.serializers import UserSerializer, PublicationSerializer
 
-def users(request):
-    if request.method == 'GET':
-        user={
-            'id':'1',
-            'nome':'Diego'
-        }
+class userViewSet(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
 
-    return JsonResponse(user)
-
-    
+class publicationViewSet(viewsets.ModelViewSet):
+    queryset = Publication.objects.all()
+    serializer_class = PublicationSerializer
