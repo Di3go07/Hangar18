@@ -13,7 +13,8 @@ class userSerializer(serializers.ModelSerializer):
 class publicationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Publication
-        fields = '__all__'
+        fields = '__all__' #retorna todos os campos
+        read_only_fields = ['slug', 'date', 'edited'] #campos que não serão editáveis
 
     def validate_title(self, value):
         ''' Função para validar o campo do título antes de criar uma slug e controlar a exclusividade dessa '''
