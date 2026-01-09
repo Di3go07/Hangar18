@@ -10,6 +10,7 @@ class User(models.Model):
     nome = models.CharField(max_length=100)
     email = models.EmailField()
     password = models.CharField(max_length=128)
+    bio = models.CharField(max_length=350)
     cargo = models.CharField(
         choices = Cargo.choices,
         default = Cargo.AUTOR
@@ -28,6 +29,7 @@ class Publication(models.Model):
         choices = Types.choices,
         default = Types.NOTICIA
     )
+    thumb = models.CharField()
     slug = models.SlugField(max_length=250, unique=True, blank=True)
     date = models.DateField()
     edited = models.DateField(blank=True, null=True)
