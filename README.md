@@ -112,3 +112,44 @@ direction TB
 `keywords-news` - assosiação entre keywords e referentes à uma publicação 
 
 ## 🔴 Pré-requisitos
+Para rodar o projeto Hanagr 18 localmente, você precisará ter os seguintes itens instalados em sua máquina:
+
+1. Node.js
+
+    Versão: 14.x ou superior (recomendado: 18.x LTS)
+
+    Como verificar: `node --version`
+
+    Download: [nodejs.org](https://nodejs.org/pt-br)
+
+2. npm (Node Package Manager)
+
+    Geralmente instalado junto com o Node.js
+
+    Como verificar: `npm --version`
+
+    Versão mínima: 6.x
+
+4. SQLite3
+
+    Sistema: Já incluso no Node.js via pacote
+
+## 🟢 Inicialização
+
+Como iniciar a aplicação
+
+1. No terminal, acesse o dirétorio raiz do projeto 
+   ```
+   cd ./Hangar18
+   ```
+
+2. Baixe as dependências necessárias
+   ```
+   npm install
+   ```
+
+   
+3. Inicialize a aplicação
+   ```
+   npm run
+   ```
