@@ -111,6 +111,18 @@ direction TB
 
 `keywords-news` - assosiação entre keywords e referentes à uma publicação 
 
+## 🌐 Endpoints 
+Como dito, algumas rotas do projeto são protegidas e precisam, muitas vezes, serem digitadas para serem acessadas. Essas rotas são:
+
+`/login` - página de login dos usuários
+
+`/register` - formulário para administradores criarem novos usuários 
+
+`/redacao` - página com formulário para o autor escrever um artigo
+
+`/editar/:ID` - página com formulário para editar um artigo específico
+
+
 ## 🔴 Pré-requisitos
 Para rodar o projeto Hanagr 18 localmente, você precisará ter os seguintes itens instalados em sua máquina:
 
@@ -153,3 +165,12 @@ Como iniciar a aplicação
    ```
    npm run
    ```
+
+Com os servidores online, cadastre seu usuário e escreva seus próprios artigos para popular o site.
+
+## 👨‍💻 Desenvolvedor
+Responsável pela criação do projeto
+
+Diego - Programação e documentação <br>
+Email: diego.dpab@gmail.com <br>
+Conheça mais acessando o GitHub do desenvolvedor [aqui](https://github.com/Di3go07)!
